@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+require './lib/find_card'
+require './lib/find_checklist'
+
+card = FindCard.call
+goals = YAML.load_file('./config/tasks.yml.example')
+
+goals.each do |checklist_name, tasks|
+  checklist = FindChecklist.call(card, checklist_name)
+  tasks.each do |task|
+    checklist.add_item(task) unless checklist.items.detect { |item| item.name == task }
+  end
+end

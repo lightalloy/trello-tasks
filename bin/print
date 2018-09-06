@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+require './lib/find_card'
+
+card = FindCard.call
+
+card.checklists.each do |checklist|
+  puts "#{checklist.name}:"
+  checklist.items.each do |i|
+    mark = i.state == 'complete' ? '+' : '-'
+    puts "  #{mark} #{i.name}"
+  end
+end
